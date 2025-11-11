@@ -4,12 +4,13 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save, post_delete
 
 
+
 TIME_SLOTS = (
     ('8:45 - 9:45'  , '8:45 - 9:45'),
     ('10:00 - 11:00', '10:00 - 11:00'),
     ('11:00 - 12:00', '11:00 - 12:00'),
     ('1:00 - 2:00'  , '1:00 - 2:00'),
-    ('2:15 - 3:15'  , '2:15 - 3:15'),
+    ('2:15 - 3:15'  , '2:15 - 3:15')
 )
 
 # TIME_SLOTS = (
@@ -28,6 +29,7 @@ DAYS_OF_WEEK = (
     ('Wednesday', 'Wednesday'),
     ('Thursday', 'Thursday'),
     ('Friday', 'Friday'),
+    ('Saturday', 'Saturday')
 )
     # ('Saturday', 'Saturday'),
 
@@ -128,7 +130,7 @@ class Data(models.Manager):
         self._depts = Department.objects.all()
 
     def get_rooms(self): return self._rooms
-
+lite
     def get_instructors(self): return self._instructors
 
     def get_courses(self): return self._courses

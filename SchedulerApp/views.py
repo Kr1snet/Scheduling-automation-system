@@ -159,7 +159,7 @@ class Schedule:
             for j in range(i + 1, len(classes)):
                 # Same course on same day
                 if (classes[i].course.course_name == classes[j].course.course_name and \
-                    str(classes[i].meeting_time).split()[1] == str(classes[j].meeting_time).split()[1]):
+                    classes[i].meeting_time.day == classes[j].meeting_time.day):
                     self._numberOfConflicts += 1
 
                 # Teacher with lectures in different timetable at same time
