@@ -27,8 +27,8 @@ class UserLoginForm(AuthenticationForm):
 class RoomForm(ModelForm):
     class Meta:
         model = Room
-        labels = {'r_number': 'Room Number'}
-        fields = ['r_number', 'seating_capacity']
+        labels = {'r_number': 'Room Number', 'room_type': 'Room Type'}
+        fields = ['r_number', 'seating_capacity', 'room_type']
 
 
 class InstructorForm(ModelForm):
@@ -52,9 +52,9 @@ class MeetingTimeForm(ModelForm):
 class CourseForm(ModelForm):
     class Meta:
         model = Course
-        labels = {'max_numb_students': 'Maximum students'}
+        labels = {'max_numb_students': 'Maximum students', 'class_type': 'Class Type'}
         fields = [
-            'course_number', 'course_name', 'max_numb_students', 'instructors'
+            'course_number', 'course_name', 'max_numb_students', 'instructors', 'class_type'
         ]
 
 

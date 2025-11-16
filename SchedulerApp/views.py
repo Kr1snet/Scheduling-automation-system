@@ -149,9 +149,22 @@ class Schedule:
         self._numberOfConflicts = 0
         classes = self.getClasses()
 
+        type_compatibility = {
+            'Lecture': ['Lecture'],
+            'Lab': ['Computer Lab'],
+            'Practice': ['Practice'],
+            'Seminar': ['Seminar'],
+        }
+
         for i in range(len(classes)):
             # Seating capacity less them course student
             if classes[i].room.seating_capacity < int(classes[i].course.max_numb_students):
+                self._numberOfConflicts += 1
+
+
+            class_type = classes[i].course.class_type
+            room_type = classes[i].room.room_type
+            if room_type not in type_compatibility.get(class_type, []):
                 self._numberOfConflicts += 1
 
             # print(classes[i].course.course_name, classes[i].meeting_time, classes[i].section, classes[i].room, classes[i].instructor)

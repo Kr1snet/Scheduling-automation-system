@@ -13,15 +13,6 @@ TIME_SLOTS = (
     ('2:15 - 3:15'  , '2:15 - 3:15')
 )
 
-# TIME_SLOTS = (
-#     ('9:30 - 10:30', '9:30 - 10:30'),
-#     ('10:30 - 11:30', '10:30 - 11:30'),
-#     ('11:30 - 12:30', '11:30 - 12:30'),
-#     ('12:30 - 1:30', '12:30 - 1:30'),
-#     ('2:30 - 3:30', '2:30 - 3:30'),
-#     ('3:30 - 4:30', '3:30 - 4:30'),
-#     ('4:30 - 5:30', '4:30 - 5:30'),
-# )
 
 DAYS_OF_WEEK = (
     ('Monday', 'Monday'),
@@ -31,15 +22,29 @@ DAYS_OF_WEEK = (
     ('Friday', 'Friday'),
     ('Saturday', 'Saturday')
 )
-    # ('Saturday', 'Saturday'),
+
+ROOM_TYPES = (
+    ('Lecture', 'Lecture Hall'),
+    ('Computer Lab', 'Computer Lab'),
+    ('Practice', 'Practice Room'),
+    ('Seminar', 'Seminar Room')
+)
+
+CLASS_TYPES = (
+    ('Lecture', 'Lecture'),
+    ('Lab', 'Laboratory'),
+    ('Practice', 'Practice'),
+    ('Seminar', 'Seminar')
+)
 
 
 class Room(models.Model):
     r_number = models.CharField(max_length=6)
     seating_capacity = models.IntegerField(default=0)
+    room_type = models.CharField(max_length=20, choices=ROOM_TYPES, default='Lecture')
 
     def __str__(self):
-        return self.r_number
+        return f'{self.r_number} ({self.room_type})'
 
 
 class Instructor(models.Model):
@@ -66,9 +71,10 @@ class Course(models.Model):
     course_name = models.CharField(max_length=40)
     max_numb_students = models.CharField(max_length=65)
     instructors = models.ManyToManyField(Instructor)
+    class_type = models.CharField(max_length=20, choices=CLASS_TYPES, default='Lecture')
 
     def __str__(self):
-        return f'{self.course_number} {self.course_name}'
+        return f'{self.course_number} {self.course_name} ({self.class_type})'
 
 
 class Department(models.Model):

@@ -6,28 +6,41 @@
 
 <div>
   {% for section in sections %}
-  <h2 class="secHead">{{ section.section_id }} ({{ section.department }})</h2>
-  <table class="timetable">
-    <thead>
-      <tr>
-        <th>Class #</th>
-        {% for time in timeSlots %}
-        <th>{{time.0}}</th>
-        {% endfor %}
-      </tr>
-    </thead>
+    <h2 class="secHead">{{ section.section_id }} ({{ section.department }})</h2>
 
-    <tbody>
-      {% for week in weekDays %}
-      <tr>
-        <th>{{week.0}}</th>
-        {% for time in timeSlots %}
-        <td>{% sub schedule section.section_id week.0 time.0 %}</td>
+    <table class="timetable">
+      <thead>
+        <tr>
+          <th>Day / Time</th>
+          {% for slot in timeSlots %}
+            <th>{{ slot.0 }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for week in weekDays %}
+          <tr>
+            <th>{{ week.0 }}</th>
+            {% for slot in timeSlots %}
+              <td>
+                {% sub schedule section.section_id week.0 slot.0 as class %}
+                {% if class %}
+                  <div class="class-info">
+                    <div class="course">{{ class.course.course_name }}</div>
+                    <div class="type">[{{ class.course.class_type }}]</div>
+                    <div class="room">Room: {{ class.room.r_number }}</div>
+                    <div class="instructor">{{ class.instructor.name }}</div>
+                  </div>
+                {% else %}
+                  <span class="empty">—</span>
+                {% endif %}
+              </td>
+            {% endfor %}
+          </tr>
         {% endfor %}
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      </tbody>
+    </table>
   {% endfor %}
 </div>
 
