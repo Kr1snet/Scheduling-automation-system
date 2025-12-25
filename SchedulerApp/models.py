@@ -15,26 +15,26 @@ TIME_SLOTS = (
 
 
 DAYS_OF_WEEK = (
-    ('Monday', 'Monday'),
-    ('Tuesday', 'Tuesday'),
-    ('Wednesday', 'Wednesday'),
-    ('Thursday', 'Thursday'),
-    ('Friday', 'Friday'),
-    ('Saturday', 'Saturday')
+    ('Monday', 'Понедельник'),
+    ('Tuesday', 'Вторник'),
+    ('Wednesday', 'Среда'),
+    ('Thursday', 'Четверг'),
+    ('Friday', 'Пятница'),
+    ('Saturday', 'Суббота')
 )
 
 ROOM_TYPES = (
-    ('Lecture', 'Lecture Hall'),
-    ('Computer Lab', 'Computer Lab'),
-    ('Practice', 'Practice Room'),
-    ('Seminar', 'Seminar Room')
+    ('Lecture',      'Лекционная аудитория'),
+    ('Computer Lab', 'Компьютерный класс'),
+    ('Practice',     'Практическая аудитория'),
+    ('Seminar',      'Семинарская комната'),
 )
 
 CLASS_TYPES = (
-    ('Lecture', 'Lecture'),
-    ('Lab', 'Laboratory'),
-    ('Practice', 'Practice'),
-    ('Seminar', 'Seminar')
+    ('Lecture',  'Лекция'),
+    ('Lab',      'Лабораторная работа'),
+    ('Practice', 'Практическое занятие'),
+    ('Seminar',  'Семинар'),
 )
 
 
@@ -148,3 +148,18 @@ lite
     def get_numberOfClasses(self): return self._numberOfClasses
 
 '''
+
+
+
+class ScheduleItem(models.Model):
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='schedule_items')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
+    meeting_time = models.ForeignKey(MeetingTime, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('section', 'meeting_time')  # Избежать дубликатов для одной группы в один слот
+
+    def __str__(self):
+        return f"{self.section.section_id} - {self.course.course_name} ({self.meeting_time})"

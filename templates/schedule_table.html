@@ -1,0 +1,174 @@
+{% load static %}
+
+<!-- Фильтры -->
+<div class="all">
+<div class="filters">
+    <select id="filter_type">
+      <option value="section">Группа</option>
+      <option value="room">Аудитория</option>
+      <option value="instructor">Преподаватель</option>
+    </select>
+    <select id="filter_value">
+    </select>
+    <button id="apply_filter">Применить</button>
+</div>
+
+<!-- Одна таблица -->
+<table class="timetable" id="schedule_table">
+    <thead>
+      <tr>
+        <th>День / Время</th>
+        {% for slot in timeSlots %}
+          <th>{{ slot.0 }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for week in weekDays %}
+        <tr>
+          <th>{{ week.1 }}</th>
+          {% for slot in timeSlots %}
+            <td id="cell_{{ week.0 }}_{{ slot.0 }}"></td>  
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<script>
+  // Данные для опций (из view)
+  const sections = [
+    {% for sec in sections %}
+      {section_id: "{{ sec.section_id }}", department: "{{ sec.department }}"},
+    {% endfor %}
+  ];
+  const rooms = [
+    {% for rm in rooms %}
+      {r_number: "{{ rm.r_number }}"},
+    {% endfor %}
+  ];
+  const instructors = [
+    {% for inst in instructors %}
+      {name: "{{ inst.name }}"},
+    {% endfor %}
+  ];
+
+  const filterTypeSelect = document.getElementById('filter_type');
+  const filterValueSelect = document.getElementById('filter_value');
+  const applyButton = document.getElementById('apply_filter');
+
+  // Обновление опций при смене типа
+  filterTypeSelect.addEventListener('change', function() {
+    const type = this.value;
+    filterValueSelect.innerHTML = '';
+    let options = [];
+    if (type === 'section') options = sections;
+    else if (type === 'room') options = rooms;
+    else if (type === 'instructor') options = instructors;
+
+    options.forEach(opt => {
+      const option = document.createElement('option');
+      option.value = opt.section_id || opt.r_number || opt.name;
+      option.text = option.value + (opt.department ? ' (' + opt.department + ')' : '');
+      filterValueSelect.appendChild(option);
+    });
+  });
+
+  // Применение фильтра (AJAX)
+  applyButton.addEventListener('click', function() {
+    const type = filterTypeSelect.value;
+    const value = filterValueSelect.value;
+    fetch(`/get_schedule/?filter_type=${type}&filter_value=${value}`)
+      .then(response => response.json())
+      .then(data => {
+        // Очистить таблицу
+        document.querySelectorAll('#schedule_table td').forEach(td => {
+          td.innerHTML = '<span class="empty">—</span>';
+        });
+
+        const typeTranslation = {
+          'Lecture': 'Лекция',
+          'Lab': 'Лабораторная',
+          'Practice': 'Практика',
+          'Seminar': 'Семинар'
+        };
+        
+        // Заполнить
+        for (const day in data.schedule) {
+          for (const slot in data.schedule[day]) {
+            const cell = document.getElementById(`cell_${day}_${slot}`);
+            const info = data.schedule[day][slot];
+            const translatedType = typeTranslation[info.type] || info.type;
+            if (info) {
+              cell.innerHTML = `
+                <div class="class-info">
+                  <div class="course">${info.course}</div>
+                  <div class="type">[${translatedType}]</div>
+                  <div class="room">Аудитория: ${info.room}</div>
+                  <div class="instructor">${info.instructor}</div>
+                </div>
+              `;
+            }
+          }
+        }
+      });
+  });
+
+  // Инициализация: загрузить по умолчанию (первая группа)
+  filterTypeSelect.dispatchEvent(new Event('change'));
+  if (filterValueSelect.options.length > 0) {
+    filterValueSelect.selectedIndex = 0;
+    applyButton.click();
+  }
+</script>
+
+<style>
+  .all{
+    width: 100%;
+  }
+    .filters {
+      border-radius: 8px;
+      font-size: 18px;        
+    }
+
+    .filters label {
+        margin-right: 10px;
+        font-weight: bold;
+    }
+
+    .filters select,
+    .filters button {
+        font-size: 18px !important;   
+        padding: 8px 12px;
+        margin-right: 15px;
+        border-radius: 6px;
+        border: 1px solid #666;
+        min-width: 200px;
+    }
+
+    .filters button {
+        background: #4b5586;
+        color: white;
+        cursor: pointer;
+        padding: 10px 20px;
+        min-width: 120px;
+    }
+
+    .filters button:hover {
+        background: #343c68;
+    }
+
+    /* Чтобы на маленьких экранах всё не ломалось */
+    @media (max-width: 768px) {
+        .filters select,
+        .filters button {
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .timetable {
+            font-size: 14px;
+        }
+    }
+</style>

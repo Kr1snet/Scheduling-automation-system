@@ -1,11 +1,6 @@
 :root {
-  --green1: #57ACAC;
-  --green2: #38c0b3;
-  --green3: #257a7a;
-  --green4: #0FCD9D;
-  --green5: #01d7a7;
-  --green6: #00BE8E;
-  --green7: #009879;
+  --purple1:#343c68;
+  --purple2:#4b5586;
   --white: #fff;
   --grey: #aaa;
   --dark-grey: #444;
@@ -18,7 +13,7 @@
 html {
   font-size: 100%;
   box-sizing: border-box;
-  scroll-behavior: smooth;
+  
 }
 
 *, ::before, ::after {
@@ -37,6 +32,7 @@ html, body {
 
 body {
   position: relative;
+  overflow-x: hidden;
 }
 
 a {
@@ -48,7 +44,8 @@ button {
 }
 
 .logo h2 {
-  color: var(--green3);
+  color: var(--purple1);
+  font-weight: 600;
 }
 
 .logo h2 a {
@@ -72,13 +69,13 @@ button {
   background: var(--white);
   color: #000;
   opacity: 0.85;
-  height: 10rem;
+  height: 8rem;
   z-index: 12;
 }
 
 .navbar-container {
-  max-width:1200px;
-  width: 90%;
+  max-width:1900px;
+  width: 95%;
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -95,16 +92,16 @@ button {
 .menu-items li {
   list-style: none;
   margin-left: 1.5rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   position: relative;
 }
 
 .menu-items a {
   text-decoration: none;
-  color: var(--dark-grey);
+  color: var(--purple2);
   position: relative;
-  font-size: 1.3rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 600;
   transition: color 0.3s ease-in-out;
 }
 
@@ -130,7 +127,7 @@ button {
   bottom: -3px;
   width: 100%;
   height: 3px;
-  background: #ff3f3f;
+  background: var(--purple1);
   transform-origin: center;
   transform: scaleX(0);
 }
@@ -148,11 +145,11 @@ button {
 }
 
 .menu-items li a:hover{
-  color:#ff3f3f;
+  color: var(--purple1);
 }
 
 .menu-items .active a {
-  color:#ff3f3f;
+  color: var(--purple1);;
 }
 
 @media screen and (max-width: 54rem) {
@@ -258,9 +255,7 @@ button {
 }
 
 .halfpart {
-  width: 100%;
   display: flex;
-  justify-content: center;
   height: 50vh;
 }
 
@@ -292,7 +287,7 @@ button {
 }
 
 .card .crdbtn {
-  width: auto;
+  width: 95%;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -301,7 +296,7 @@ button {
 
 .card .crdbtn .btn {
 	color: var(--white);
-	background-color: var(--green5);
+	background-color: var(--purple2);
 	font-size: 1.6rem;
   font-weight: bold;
 	line-height: 2.6rem;
@@ -320,19 +315,19 @@ button {
 }
 
 .card .crdbtn .btn:hover {
-  background: var(--green6) radial-gradient(circle, transparent 1%, var(--green4) 1%) center/15000%;
+  background: var(--purple1) radial-gradient(circle, transparent 1%, var(--purple1) 1%) center/15000%;
 }
 
 .card .crdbtn .btn:active {
   color: var(--white);
-  background-color: var(--green4);
+  background-color: var(--purple2);
   background-size: 100%;
   transition: background 0s;
 }
 
 .card .crdbtn .btn:focus {
   color: var(--white);
-  background-color: var(--green6);
+  background-color: var(--purple1);
 }
 
 
@@ -352,7 +347,7 @@ button {
 
 .loader {
   fill: transparent;
-  stroke: var(--green2);
+  stroke: var(--purple1);
   stroke-width: 5;
   animation: dash 2s ease infinite, rotate 2s linear infinite;
 }
@@ -391,7 +386,7 @@ fieldset {
   background: transparent;
   box-shadow: rgba(0, 0, 0, 0.145) 0px 4px 8px,
               rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-top: 5px solid var(--green1);
+  border-top: 5px solid var(--purple2);
 }
 
 .fieldset {
@@ -409,17 +404,19 @@ fieldset {
 .tablink {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 25px;
+
 }
 
 .tablink h1 {
-  color: var(--green3);
+  color: var(--purple2);
   padding-bottom: 2rem;
   cursor: pointer;
   font-size: 3rem;
 }
 
 .tablink h1:hover {
-  color: var(--green5);
+  color: var(--purple1);
 }
 
 .tablink h1:hover, .tablink a:hover {
@@ -459,7 +456,7 @@ fieldset {
 .tabcontent p input:focus,
 .tabcontent p select:focus {
   outline: 0;
-  border-color: var(--green5);
+  border-color: var(--purple2);
 }
 
 .tabcontent p select[multiple] {
@@ -484,7 +481,7 @@ fieldset {
   text-transform: uppercase;
   cursor: pointer;
   color: var(--white);
-  background-color: var(--green5);
+  background-color: var(--purple2);
   box-shadow: 2px 2px 6px var(--box-shadow);
   outline: none;
 }
@@ -496,26 +493,26 @@ fieldset {
 }
 
 .submit:hover {
-  background: var(--green6) radial-gradient(circle, transparent 1%, var(--green4) 1%) center/15000%;
+  background: var(--green6) radial-gradient(circle, transparent 1%, var(--purple1) 1%) center/15000%;
 }
 
 .submit:active {
   color: var(--white);
-  background-color: var(--green4);
+  background-color: var(--purple1);
   background-size: 100%;
   transition: background 0s;
 }
 
 .submit:focus {
   color: var(--white);
-  background-color: var(--green6);
+  background-color: var(--purple1);
 }
 
 
 .secHead {
   margin-top: 2rem;
   margin-bottom: 20px;
-  color: var(--green3);
+  color: var(--purple2);
   font-size: 1.8rem;
 }
 
@@ -532,7 +529,7 @@ fieldset {
 
 .editTable thead tr,
 .timetable thead tr {
-  background-color: var(--green7);
+  background-color: var(--purple2);
   color: var(--white);
   font-weight: bold;
 }
@@ -556,7 +553,7 @@ fieldset {
 
 .editTable tbody tr:last-of-type,
 .timetable tbody tr:last-of-type {
-  border-bottom: 2px solid var(--green7);
+  border-bottom: 2px solid var(--purple2);
 }
 
 .timetable {
@@ -574,7 +571,7 @@ fieldset {
 }
 .timetable tbody tr > th:first-child {
   text-align: left;
-  color: var(--green7);
+  color: var(--purple1);
 }
 
 .empty form {
@@ -589,8 +586,13 @@ fieldset {
   box-shadow: 0px 1px 3px 0px var(--box-shadow);
   padding: 4px;
   color: var(--white);
-  background-color: var(--green7);
+  background-color: var(--purple2);
   cursor: pointer;
   width: 2.6rem;
   height: 2.6rem;
+}
+
+
+.filters{
+  font-size: x-large
 }

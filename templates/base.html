@@ -44,16 +44,15 @@
         </div>
         <div class="logo">
           <h2><a href="{{ home }}">Time-Table Scheduler</a></h2>
-          <h4>Schedule Timetable with ease</h4>
         </div>
         <ul class="menu-items">
-          <li class="{% active request home %}"><a href="{{ home }}">Home</a></li>
-          <li class="{% active request instructorAdd %}"><a href="{{ instructorAdd }}">Instructor</a></li>
-          <li class="{% active request roomAdd %}"><a href="{{ roomAdd }}">Room</a></li>
-          <li class="{% active request meetingTimeAdd %}"><a href="{{ meetingTimeAdd }}">Meeting time</a></li>
-          <li class="{% active request courseAdd %}"><a href="{{ courseAdd }}">Course</a></li>
-          <li class="{% active request departmentAdd %}"><a href="{{ departmentAdd }}">Department</a></li>
-          <li class="{% active request sectionAdd %}"><a href="{{ sectionAdd }}">Section</a></li>
+          <li class="{% active request home %}"><a href="{{ home }}">Расписание</a></li>
+          <li class="{% active request instructorAdd %}"><a href="{{ instructorAdd }}">Преподаватели</a></li>
+          <li class="{% active request roomAdd %}"><a href="{{ roomAdd }}">Аудитории</a></li>
+          <li class="{% active request meetingTimeAdd %}"><a href="{{ meetingTimeAdd }}">Часы занятий</a></li>
+          <li class="{% active request courseAdd %}"><a href="{{ courseAdd }}">Дисциплины</a></li>
+          <li class="{% active request departmentAdd %}"><a href="{{ departmentAdd }}">Учебные группы</a></li>
+          <li class="{% active request sectionAdd %}"><a href="{{ sectionAdd }}">Поток</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'logout' %}"><i style="font-size:1.6rem" class="fa">&#xf08b;</i></a></li>
           {% endif %}

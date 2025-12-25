@@ -30,5 +30,9 @@ urlpatterns = [
     path('sectionDelete/<str:pk>/', sectionDelete, name='deletesection'),
 
     path('api/genNum/', apiGenNum, name='apiGenNum'),
-    path('api/terminateGens/', apiterminateGens, name='apiterminateGens')
+    path('api/terminateGens/', apiterminateGens, name='apiterminateGens'),
+
+
+    path('schedule_view/', schedule_view, name='schedule_view'),
+    path('get_schedule/', get_schedule_ajax, name='get_schedule')
 ]
